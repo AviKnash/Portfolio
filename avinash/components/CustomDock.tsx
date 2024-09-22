@@ -7,6 +7,7 @@ import {
     IconHome,
     IconNewSection,
     IconTerminal2,
+    IconMeeple
   } from "@tabler/icons-react";
 
 const links = [
@@ -15,15 +16,15 @@ const links = [
       icon: (
         <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "/",
     },
   
     {
-      title: "Products",
+      title: "About me",
       icon: (
-        <IconTerminal2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconMeeple className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "/about-me",
     },
     {
       title: "Components",
@@ -55,7 +56,7 @@ const links = [
       href: "#",
     },
   ];
-  
+
 const CustomDock = () => {
   return (
     <div className="fixed bottom-5 left-0 right-0 flex md:items-center md:justify-center w-full">
