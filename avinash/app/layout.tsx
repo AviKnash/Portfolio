@@ -3,15 +3,34 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import CustomDock from "@/components/CustomDock";
+import { ReactLenis } from "@/lib/lenis";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
+
+const leiko = localFont({
+  src: "./fonts/Leiko-Regular.otf",
+  variable: "--font-leiko",
   weight: "100 900",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+
+const montreal = localFont({
+  src: "./fonts/PPNeueMontreal-Medium.otf",
+  variable: "--font-montreal",
+  weight: "100 900",
+});
+
+const espana = localFont({
+  src: "./fonts/CremeEspana.woff",
+  variable: "--font-espana",
   weight: "100 900",
 });
 
@@ -27,22 +46,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
+      <ReactLenis root>
+        <body
+          className={`${leiko.variable} ${espana.variable} ${montreal.variable} antialiased`}
         >
-          <main className="relative bg-background flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
-
-          {children}
-          <CustomDock />
-          </main>
-        </ThemeProvider>
-      </body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </ReactLenis>
     </html>
   );
 }

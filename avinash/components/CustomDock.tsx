@@ -59,7 +59,7 @@ const links = [
 
 const CustomDock = () => {
   return (
-    <div className="fixed bottom-5 left-0 right-0 flex md:items-center md:justify-center w-full">
+    <div className="fixed top-5 left-0 right-0 flex md:items-center md:justify-center w-full">
       <FloatingDock
         items={links}
       />

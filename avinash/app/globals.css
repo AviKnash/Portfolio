@@ -68,10 +68,10 @@
 
 @layer base {
   * {
-    @apply border-border !scroll-smooth;
+    @apply border-border !scroll-smooth no-scrollbar;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply font bg-custom text-foreground;
   }
   button {
     @apply active:outline-none;
@@ -86,4 +86,131 @@
   .black-gradient {
     background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
   }
+
+  .bg-custom {
+    background: url("/noise.svg"),
+      linear-gradient(to bottom, #0d0d0c, black, black);
+    background-blend-mode: overlay;
+  }
+
+  .font {
+    font-family: var(--font-montreal);
+    color: #dddddd;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+  }
+
+  .border-custom {
+    border-width: 0.5rem;
+    border-color: rgba(255, 255, 255, 0.1); 
+    border-style: solid; 
+    border-radius: 1.5rem; 
+  }
+
+  .spotlight-hero {
+    position: relative;
+    /* overflow: hidden; */
+  }
+
+  .spotlight-hero::before {
+    content: "";
+    position: absolute;
+    top: var(--y, 50%);
+    left: var(--x, 50%);
+    transform: translate(-50%, -50%);
+    width: 700px; /* Increased size for more visibility */
+    height: 700px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.3) 0%,
+      /* Increased opacity for brightness */ rgba(255, 255, 255, 0.1) 20%,
+      rgba(255, 255, 255, 0.05) 40%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    border-radius: 50%; /* Ensure perfect circularity */
+  }
+
+  .spotlight-hero:hover::before {
+    opacity: 1;
+  }
+
+  .spotlight-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .spotlight-hero > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bg-glass {
+    background: rgba(85, 75, 75, 0.14);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16.9px);
+    -webkit-backdrop-filter: blur(16.9px);
+    border: 1px solid rgba(85, 75, 75, 0.58);
+  }
+
+  .bg-glass:hover {
+    background: rgba(85, 75, 75, 0.25);
+    border: 1px solid rgba(85, 75, 75, 0.8);
+    box-shadow: 0 6px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .text-lightup {
+    transition: color 0.9s ease-in-out, text-shadow 0.5s ease; /* Base transition */
+  }
+
+  .text-lightup:hover {
+    color: rgba(255, 255, 255, 0.8); /* Slightly less bright than pure white */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+  }
+
+  .bento-shadow {
+    transition: text-shadow 0.5s ease-in-out;
+  }
+
+  .bento-shadow:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
+      0 0 20px rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.1);
+    background: url("/noise.svg"),
+      linear-gradient(to bottom, #1a1a19, #0f0f0e, #0f0f0e);
+    background-blend-mode: overlay;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
 }

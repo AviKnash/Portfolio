@@ -1,35 +1,60 @@
-import React from "react";
-import { Spotlight } from "./ui/Spotlight";
+"use client";
+import React, { useEffect, useRef } from "react";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
-import MagicButton from "./ui/MagicButton";
-import { FaLocationArrow } from "react-icons/fa";
 
 const Hero = () => {
-  return (
-    <div className="pb-20 pt-36">
-      <div>
-        <Spotlight
-          className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
-          fill="white"
-        />
-        <Spotlight
-          className="top-10 left-full h-[80vh] w-[50vw]"
-          fill="white"
-        />
-        <Spotlight className="top-28 left-80 h-[80vh] w-[50vw]" fill="white" />
-      </div>
-      <div className="h-screen w-full dark:bg-black bg-white dark:bg-grid-white/[0.03] bg-grid-black/[0.2] flex items-center justify-center absolute top-0 left-0">
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-      </div>
+  const heroRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+
+    let rafId: number | null = null;
+    let currentX = 0;
+    let currentY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    const lerp = (start: number, end: number, factor: number) =>
+      start + (end - start) * factor;
+
+    const animateSpotlight = () => {
+      currentX = lerp(currentX, targetX, 0.1);
+      currentY = lerp(currentY, targetY, 0.1);
+
+      hero.style.setProperty("--x", `${currentX}px`);
+      hero.style.setProperty("--y", `${currentY}px`);
+
+      rafId = requestAnimationFrame(animateSpotlight);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = hero.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    rafId = requestAnimationFrame(animateSpotlight);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <div ref={heroRef} className="pb-20 pt-36 h-screen spotlight-hero">
       <div className="flex justify-center relative my-20 z-10">
         <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
-          <h1 className="uppercase tracking-widest text-xs text-center text-blue-100 max-w-80">
-            Dynamic Web Magic
-          </h1>
-          <TextGenerateEffect className="text-center text-[40px] md:text-5xl lg:text-6xl" words="This is my portfolio website"/>
-          <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">Hi, I&apos;m Avinash</p>
-          <a href='#about'><MagicButton icon={<FaLocationArrow />} position="right" title="Show my work" /></a>
+          <TextGenerateEffect
+            className="text-center text-lightup text-[40px] md:text-5xl lg:text-6xl"
+            words="It's all about light's!"
+          />
+          {/* <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
+            Hi, I&apos;m Avinash
+          </p> */}
+          {/* <TextHoverEffect  text="AVINASH"/> */}
         </div>
       </div>
     </div>
