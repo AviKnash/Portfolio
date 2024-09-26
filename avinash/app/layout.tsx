@@ -2,18 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
-import { ReactLenis } from "@/lib/lenis";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
 
 const leiko = localFont({
   src: "./fonts/Leiko-Regular.otf",
@@ -45,7 +33,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReactLenis root>
         <body
           className={`${leiko.variable} ${espana.variable} ${montreal.variable} antialiased`}
         >
@@ -58,7 +45,6 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </body>
-      </ReactLenis>
     </html>
   );
 }
